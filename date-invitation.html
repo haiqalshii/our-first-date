@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Little Invitation 🐱💌</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-pink:   #FFF0F5;
+      --bg-lav:    #F5EFFE;
+      --bg-cream:  #FFF8F0;
+      --pink-soft: #F7C5D7;
+      --pink-mid:  #E8A0BB;
+      --pink-deep: #D46E99;
+      --lav-soft:  #D8C4F0;
+      --lav-mid:   #B89ADE;
+      --peach:     #FFD6A5;
+      --txt-dark:  #4A2A5A;
+      --txt-mid:   #8B5E8B;
+      --txt-light: #C4A0C4;
+      --white:     #FFFFFF;
+      --shadow-s:  0 6px 24px rgba(160,100,180,.13);
+      --shadow-m:  0 12px 40px rgba(160,100,180,.22);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg-pink);
+      color: var(--txt-dark);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ── SECTION SYSTEM ── */
+    .section {
+      display: none;
+      min-height: 100vh;
+      width: 100%;
+      padding: 48px 20px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .section.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeUp .7s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(28px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── FLOATING BG ── */
+    #bgLayer { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+    .bg-float {
+      position:absolute; opacity:.10;
+      animation: bgFloat linear infinite;
+      user-select:none;
+    }
+    @keyframes bgFloat {
+      0%   { transform:translateY(110vh) rotate(-12deg); }
+      50%  { transform:translateY(-15vh) rotate(12deg); }
+      100% { transform:translateY(110vh) rotate(-12deg); }
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display:inline-block;
+      font-family:'Quicksand',sans-serif;
+      font-weight:700; font-size:1.05rem;
+      border:none; border-radius:50px;
+      cursor:pointer;
+      transition:transform .25s ease, box-shadow .25s ease;
+      letter-spacing:.3px;
+    }
+    .btn:active { transform:scale(.96) !important; }
+    .btn-main {
+      background:linear-gradient(135deg,var(--pink-mid),var(--lav-mid));
+      color:#fff; padding:15px 48px;
+      box-shadow:0 8px 24px rgba(220,130,190,.35);
+    }
+    .btn-main:hover { transform:translateY(-3px) scale(1.04); box-shadow:0 12px 34px rgba(200,110,180,.45); }
+
+    /* ── SHARED CARD ── */
+    .card {
+      background:var(--white);
+      border-radius:22px;
+      box-shadow:var(--shadow-s);
+      transition:transform .28s ease, box-shadow .28s ease;
+    }
+    .card:hover { transform:translateY(-5px); box-shadow:var(--shadow-m); }
+
+    /* ══════════════ S1 — LANDING ══════════════ */
+    #s1 { background:linear-gradient(160deg,#FFF0FA 0%,#F5EFFE 55%,#FFF5EE 100%); }
+
+    .land-wrap { position:relative; z-index:1; text-align:center; max-width:420px; }
+
+    /* from / to tag */
+    .letter-tag {
+      display:inline-flex; flex-direction:column; gap:3px;
+      background:var(--white);
+      border:2px dashed var(--pink-soft);
+      border-radius:16px;
+      padding:12px 28px; margin-bottom:22px;
+      box-shadow:var(--shadow-s);
+    }
+    .letter-line { font-size:.82rem; color:var(--txt-mid); font-weight:600; letter-spacing:.5px; }
+    .letter-line span { color:var(--txt-dark); font-weight:700; font-family:'Quicksand',sans-serif; }
+    .letter-line .blank {
+      display:inline-block; border-bottom:2px solid var(--pink-soft);
+      min-width:100px; margin-left:4px;
+    }
+
+    .land-cat {
+      font-size:5.5rem; display:inline-block;
+      animation:catBounce 2.2s ease-in-out infinite;
+      filter:drop-shadow(0 8px 16px rgba(220,140,200,.25));
+    }
+    @keyframes catBounce {
+      0%,100% { transform:translateY(0) rotate(-6deg); }
+      50%      { transform:translateY(-18px) rotate(6deg); }
+    }
+
+    .land-title {
+      font-family:'Quicksand',sans-serif;
+      font-size:2.3rem; font-weight:700; line-height:1.3;
+      color:var(--txt-dark); margin:18px 0 10px;
+    }
+    .land-sub { font-size:1.05rem; color:var(--txt-mid); font-style:italic; margin-bottom:28px; }
+    .land-dots { display:flex; justify-content:center; gap:10px; margin-bottom:36px; }
+    .land-dot  { font-size:1.3rem; animation:dotPulse 1.6s ease-in-out infinite; }
+    .land-dot:nth-child(2) { animation-delay:.3s; }
+    .land-dot:nth-child(3) { animation-delay:.6s; }
+    @keyframes dotPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.35);} }
+
+    /* ══════════════ S2 — GUESS ══════════════ */
+    #s2a,#s2b { background:linear-gradient(155deg,#FEF5FF 0%,#FFF0F7 100%); }
+    .guess-wrap { position:relative; z-index:1; width:100%; max-width:500px; text-align:center; }
+    .step-pill {
+      display:inline-block;
+      background:var(--pink-soft); color:var(--txt-mid);
+      font-size:.72rem; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; padding:5px 15px; border-radius:20px; margin-bottom:14px;
+    }
+    .guess-title {
+      font-family:'Quicksand',sans-serif;
+      font-size:1.55rem; font-weight:700; color:var(--txt-dark);
+      margin-bottom:24px; line-height:1.45;
+    }
+    .cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+    .g-card {
+      background:var(--white); border-radius:20px;
+      padding:22px 14px 18px; cursor:pointer;
+      box-shadow:var(--shadow-s);
+      transition:transform .28s ease, box-shadow .28s ease, border-color .2s ease;
+      border:3px solid transparent; position:relative; overflow:hidden;
+    }
+    .g-card:hover { transform:translateY(-5px) scale(1.03); box-shadow:var(--shadow-m); }
+    .g-card::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,rgba(247,197,215,.18),rgba(216,196,240,.18));
+      opacity:0; transition:opacity .3s;
+    }
+    .g-card:hover::before { opacity:1; }
+    .g-card.chosen {
+      border-color:var(--pink-mid);
+      background:linear-gradient(135deg,#FFF0FA,#F5EFFE);
+      transform:scale(1.05);
+      box-shadow:0 12px 40px rgba(230,150,190,.35);
+    }
+    .g-card.chosen::after {
+      content:'✓'; position:absolute; top:9px; right:13px;
+      color:var(--pink-mid); font-weight:900; font-size:.9rem;
+    }
+    .g-card .icon { font-size:2.6rem; display:block; margin-bottom:9px; }
+    .g-card .name { font-family:'Quicksand',sans-serif; font-size:.95rem; font-weight:700; color:var(--txt-dark); }
+
+    .guess-msg {
+      background:var(--white); border-radius:16px;
+      padding:15px 22px; box-shadow:var(--shadow-s);
+      color:var(--txt-mid); font-size:.95rem;
+      margin-bottom:18px; display:none;
+    }
+    .guess-msg.show { display:block; animation:popIn .45s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes popIn { from{transform:scale(.8);opacity:0;} to{transform:scale(1);opacity:1;} }
+    .hidden { display:none !important; }
+
+    /* ══════════════ S3 — TIMELINE ══════════════ */
+    #s3 { background:linear-gradient(160deg,#FFF5F9 0%,#F5EFFE 100%); }
+    .tl-wrap { position:relative; z-index:1; width:100%; max-width:460px; }
+    .tl-head { text-align:center; margin-bottom:28px; }
+    .tl-title { font-family:'Quicksand',sans-serif; font-size:1.75rem; font-weight:700; color:var(--txt-dark); margin-bottom:6px; }
+    .tl-sub   { color:var(--txt-mid); font-size:.92rem; }
+
+    .timeline { position:relative; padding-left:54px; }
+    .timeline::before {
+      content:''; position:absolute; left:22px; top:4px; bottom:4px; width:3px;
+      background:linear-gradient(to bottom,var(--pink-soft),var(--lav-soft),var(--peach));
+      border-radius:3px;
+    }
+    .tl-item { position:relative; margin-bottom:14px; cursor:pointer; }
+    .tl-dot {
+      position:absolute; left:-40px; top:12px;
+      width:36px; height:36px; background:var(--white);
+      border-radius:50%; border:2px solid var(--pink-soft);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; box-shadow:0 4px 14px rgba(180,120,180,.2);
+      transition:transform .3s, border-color .3s, background .3s; z-index:1;
+    }
+    .tl-item:hover .tl-dot, .tl-item.open .tl-dot {
+      transform:scale(1.18); border-color:var(--pink-mid);
+      background:linear-gradient(135deg,var(--pink-soft),var(--lav-soft));
+    }
+    .tl-bubble {
+      background:var(--white); border-radius:18px;
+      padding:13px 17px; box-shadow:var(--shadow-s);
+      transition:transform .28s, box-shadow .28s;
+    }
+    .tl-item:hover .tl-bubble { transform:translateX(4px); box-shadow:var(--shadow-m); }
+    .tl-time  { font-size:.7rem; color:var(--txt-light); font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:2px; }
+    .tl-event { font-family:'Quicksand',sans-serif; font-size:.98rem; font-weight:700; color:var(--txt-dark); }
+    .tl-desc  {
+      max-height:0; overflow:hidden;
+      transition:max-height .4s ease, margin-top .3s;
+      font-size:.86rem; color:var(--txt-mid); line-height:1.55;
+    }
+    .tl-item.open .tl-desc { max-height:120px; margin-top:7px; }
+
+    /* ══════════════ S4 — CHECKLIST ══════════════ */
+    #s4 { background:linear-gradient(160deg,#FFEEF8 0%,#F0EEFF 100%); }
+    .cl-wrap  { position:relative; z-index:1; width:100%; max-width:400px; }
+    .cl-title { font-family:'Quicksand',sans-serif; font-size:1.75rem; font-weight:700; text-align:center; margin-bottom:6px; }
+    .cl-sub   { text-align:center; color:var(--txt-mid); font-size:.92rem; margin-bottom:22px; }
+    .prog-track { height:7px; border-radius:20px; background:rgba(180,120,180,.15); margin-bottom:22px; overflow:hidden; }
+    .prog-fill {
+      height:100%; width:0%;
+      background:linear-gradient(to right,var(--pink-mid),var(--lav-mid));
+      border-radius:20px;
+      transition:width .5s cubic-bezier(.34,1.4,.64,1);
+    }
+    .cl-list { display:flex; flex-direction:column; gap:11px; margin-bottom:28px; }
+    .cl-item {
+      display:flex; align-items:center; gap:13px;
+      background:var(--white); border-radius:16px;
+      padding:13px 17px; box-shadow:var(--shadow-s);
+      cursor:pointer;
+      transition:transform .25s, box-shadow .25s, border-color .25s, background .25s;
+      border:2px solid transparent; user-select:none;
+    }
+    .cl-item:hover { transform:translateX(5px); box-shadow:var(--shadow-m); }
+    .cl-item.done {
+      border-color:var(--pink-soft);
+      background:linear-gradient(to right,#FFF0FA,#F5EFFE);
+    }
+    .cl-circle {
+      width:27px; height:27px; border-radius:50%;
+      border:2px solid var(--pink-soft);
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; transition:background .3s, border-color .3s;
+      font-size:.8rem; font-weight:900; color:transparent;
+    }
+    .cl-item.done .cl-circle {
+      background:linear-gradient(135deg,var(--pink-mid),var(--lav-mid));
+      border-color:transparent; color:#fff;
+    }
+    .cl-emoji { font-size:1.25rem; flex-shrink:0; }
+    .cl-label { font-family:'Quicksand',sans-serif; font-weight:600; font-size:.93rem; }
+
+    /* ══════════════ S5 — FINAL ══════════════ */
+    #s5 { background:linear-gradient(160deg,#FFF0F7 0%,#F5EFFE 50%,#FFF8F0 100%); }
+    .final-wrap { position:relative; z-index:1; text-align:center; width:100%; max-width:460px; }
+    .final-cat {
+      font-size:4.5rem; display:inline-block;
+      animation:catBounce 2.2s ease-in-out infinite;
+      filter:drop-shadow(0 8px 18px rgba(220,140,200,.3));
+      margin-bottom:14px;
+    }
+    .final-q {
+      font-family:'Quicksand',sans-serif;
+      font-size:1.95rem; font-weight:700; color:var(--txt-dark);
+      line-height:1.35; margin-bottom:34px;
+    }
+
+    .answer-zone {
+      display:flex; gap:14px; justify-content:center; align-items:center;
+      flex-wrap:wrap; margin-bottom:36px; min-height:56px; position:relative;
+    }
+    .btn-yes {
+      background:linear-gradient(135deg,var(--pink-soft),var(--lav-soft));
+      color:var(--txt-dark); padding:15px 50px; font-size:1.15rem;
+      box-shadow:0 8px 26px rgba(230,150,200,.4);
+      animation:yesGlow 2.2s ease-in-out infinite;
+    }
+    @keyframes yesGlow {
+      0%,100%{box-shadow:0 8px 26px rgba(230,150,200,.4);}
+      50%    {box-shadow:0 8px 40px rgba(200,150,240,.55);}
+    }
+    .btn-yes:hover { transform:scale(1.1); }
+    .btn-no {
+      background:var(--white); color:var(--txt-light);
+      border:2px solid var(--pink-soft) !important;
+      padding:13px 30px; font-size:1rem;
+      transition:all .2s ease;
+    }
+    .btn-no.escaped { position:fixed !important; z-index:60; transition:top .25s ease, left .25s ease; }
+    .btn-no:hover { color:var(--txt-mid); }
+
+    .no-err {
+      background:linear-gradient(135deg,#FFF0FA,#F5EFFE);
+      border:2px solid var(--pink-soft); border-radius:16px;
+      padding:11px 20px; color:var(--txt-mid); font-size:.9rem;
+      margin-bottom:24px; display:none;
+    }
+    .no-err.show { display:block; animation:popIn .4s ease; }
+
+    /* Countdown */
+    .countdown-card {
+      background:var(--white); border-radius:24px;
+      padding:22px 20px; box-shadow:var(--shadow-s); margin-bottom:28px;
+    }
+    .cd-label { font-size:.82rem; color:var(--txt-light); font-style:italic; margin-bottom:15px; }
+    .cd-timer { display:flex; gap:8px; justify-content:center; align-items:center; }
+    .cd-unit  { text-align:center; }
+    .cd-num {
+      font-family:'Quicksand',sans-serif;
+      font-size:1.9rem; font-weight:700; color:var(--txt-dark);
+      background:linear-gradient(135deg,#FFF0FA,#F5EFFE);
+      border-radius:12px; width:62px; height:62px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .cd-sep      { font-size:1.5rem; color:var(--pink-mid); align-self:flex-start; margin-top:12px; }
+    .cd-unit-lbl { font-size:.65rem; color:var(--txt-light); text-transform:uppercase; letter-spacing:1px; margin-top:5px; }
+
+    /* Polaroid */
+    .polaroid {
+      background:var(--white); border-radius:3px;
+      padding:14px 14px 44px;
+      box-shadow:0 10px 40px rgba(0,0,0,.11), 0 2px 8px rgba(0,0,0,.06);
+      transform:rotate(-2.5deg); display:inline-block; max-width:200px; position:relative;
+    }
+    .polaroid-inner {
+      background:linear-gradient(135deg,#F0ECF8,#FFF0F5);
+      aspect-ratio:1; border-radius:2px;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:10px; padding:16px;
+    }
+    .polaroid-dots { display:flex; gap:6px; }
+    .polaroid-dot {
+      width:8px; height:8px; border-radius:50%;
+      background:var(--pink-soft); opacity:.5;
+      animation:dotPulse 1.8s ease-in-out infinite;
+    }
+    .polaroid-dot:nth-child(2){animation-delay:.3s;}
+    .polaroid-dot:nth-child(3){animation-delay:.6s;}
+    .polaroid-wonder { font-size:.72rem; color:var(--txt-light); font-style:italic; text-align:center; line-height:1.5; }
+    .polaroid-caption {
+      position:absolute; bottom:10px; left:0; right:0;
+      text-align:center; font-family:'Quicksand',sans-serif;
+      font-size:.66rem; color:var(--txt-light);
+    }
+
+    /* ══════════════ CELEBRATE ══════════════ */
+    #celebrate {
+      display:none; position:fixed; inset:0; z-index:100;
+      background:linear-gradient(160deg,#FFF0FA,#F5EFFE,#FFF8F0);
+      flex-direction:column; align-items:center; justify-content:center;
+      text-align:center; padding:40px 24px;
+    }
+    #celebrate.show { display:flex; animation:fadeUp .8s ease; }
+    .cel-cat {
+      font-size:6rem;
+      animation:celWiggle .5s ease-in-out infinite alternate;
+      filter:drop-shadow(0 10px 24px rgba(220,140,200,.35));
+      margin-bottom:20px;
+    }
+    @keyframes celWiggle { from{transform:rotate(-10deg) scale(1);} to{transform:rotate(10deg) scale(1.1);} }
+    .cel-title { font-family:'Quicksand',sans-serif; font-size:2.4rem; font-weight:700; color:var(--txt-dark); margin-bottom:14px; }
+    .cel-msg   { font-size:1.05rem; color:var(--txt-mid); max-width:300px; line-height:1.65; margin-bottom:24px; }
+    .cel-hearts{ font-size:2rem; animation:dotPulse 1.2s infinite; }
+    .cel-bye   { margin-top:28px; font-size:.82rem; color:var(--txt-light); font-style:italic; }
+
+    /* Confetti */
+    .conf { position:fixed; pointer-events:none; z-index:200; animation:confFall linear forwards; }
+    @keyframes confFall {
+      0%   { transform:translateY(-30px) rotate(0deg); opacity:1; }
+      100% { transform:translateY(110vh) rotate(720deg); opacity:0; }
+    }
+
+    /* Paw trail */
+    .paw {
+      position:fixed; pointer-events:none; z-index:9999;
+      font-size:1.1rem; user-select:none;
+      animation:pawFade .9s ease forwards;
+    }
+    @keyframes pawFade { 0%{opacity:.75;transform:scale(1);} 100%{opacity:0;transform:scale(.5) translateY(8px);} }
+
+    /* Responsive */
+    @media(max-width:420px){
+      .land-title{font-size:1.85rem;}
+      .cards-grid{gap:10px;}
+      .g-card{padding:18px 10px 14px;}
+      .g-card .icon{font-size:2.1rem;}
+      .cd-num{width:52px;height:52px;font-size:1.45rem;}
+    }
+  </style>
+</head>
+<body>
+
+<div id="bgLayer"></div>
+
+<!-- ══════ S1 — LANDING ══════ -->
+<div class="section active" id="s1">
+  <div class="land-wrap">
+    <!-- Letter header -->
+    <div class="letter-tag">
+      <div class="letter-line">From: <span>Haiqal</span></div>
+      <div class="letter-line">To: <span>Hanim 💛</span></div>
+    </div>
+
+    <div class="land-cat">🐱</div>
+    <h1 class="land-title">A little invitation<br>for you 🐱💌</h1>
+    <p class="land-sub">I planned a small day for us</p>
+    <div class="land-dots">
+      <span class="land-dot">🌸</span>
+      <span class="land-dot">💛</span>
+      <span class="land-dot">🌸</span>
+    </div>
+    <button class="btn btn-main" onclick="goTo('s2a')">Tap to start 🐾</button>
+  </div>
+</div>
+
+<!-- ══════ S2A — LUNCH ══════ -->
+<div class="section" id="s2a">
+  <div class="guess-wrap">
+    <span class="step-pill">🍜 guess #1 of 2</span>
+    <h2 class="guess-title">Guess where we'll be having our lunch! 🐱</h2>
+    <div class="cards-grid" id="lunchGrid">
+      <div class="g-card" onclick="pickCard(this,'lunch')">
+        <span class="icon">🍝</span><div class="name">Yellow Brick Road</div>
+      </div>
+      <div class="g-card" onclick="pickCard(this,'lunch')">
+        <span class="icon">🥐</span><div class="name">Flint Café</div>
+      </div>
+      <div class="g-card" onclick="pickCard(this,'lunch')">
+        <span class="icon">🥩</span><div class="name">Sukiya</div>
+      </div>
+      <div class="g-card" onclick="pickCard(this,'lunch')">
+        <span class="icon">🍽️</span><div class="name">Sun & Moon</div>
+      </div>
+    </div>
+    <div class="guess-msg" id="lunchMsg">Hehe… interesting choice 🐱✨ I wonder if you're right</div>
+    <button class="btn btn-main hidden" id="lunchNext" onclick="goTo('s2b')">Continue →</button>
+  </div>
+</div>
+
+<!-- ══════ S2B — CAFÉ ══════ -->
+<div class="section" id="s2b">
+  <div class="guess-wrap">
+    <span class="step-pill">☕ guess #2 of 2</span>
+    <h2 class="guess-title">Where do you think we're going after? 🌸</h2>
+    <div class="cards-grid" id="cafeGrid">
+      <div class="g-card" onclick="pickCard(this,'cafe')">
+        <span class="icon">📚</span><div class="name">Kinokuniya</div>
+      </div>
+      <div class="g-card" onclick="pickCard(this,'cafe')">
+        <span class="icon">🥐</span><div class="name">Kenny Hills</div>
+      </div>
+      <div class="g-card" onclick="pickCard(this,'cafe')">
+        <span class="icon">🐱</span><div class="name">Cat Café</div>
+      </div>
+      <div class="g-card" onclick="pickCard(this,'cafe')">
+        <span class="icon">🍰</span><div class="name">Dessert Café</div>
+      </div>
+    </div>
+    <div class="guess-msg" id="cafeMsg">Hehe… interesting guesses 🐱✨ Ready to see the real plan?</div>
+    <button class="btn btn-main hidden" id="cafeNext" onclick="goTo('s3')">Continue →</button>
+  </div>
+</div>
+
+<!-- ══════ S3 — TIMELINE ══════ -->
+<div class="section" id="s3">
+  <div class="tl-wrap">
+    <div class="tl-head">
+      <h2 class="tl-title">Our Little Day 🐾</h2>
+      <p class="tl-sub">Tap each moment to peek inside ✨</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item" onclick="toggleTl(this)">
+        <div class="tl-dot">🚇</div>
+        <div class="tl-bubble">
+          <div class="tl-time">1:00 PM · Let's Go!</div>
+          <div class="tl-event">Start taking the MRT together 🌸</div>
+          <div class="tl-desc">Our little adventure begins! Side by side on the train, maybe stealing glances the whole ride.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" onclick="toggleTl(this)">
+        <div class="tl-dot">🚉</div>
+        <div class="tl-bubble">
+          <div class="tl-time">1:45 PM · Arrival</div>
+          <div class="tl-event">Arrive at MRT Mutiara Damansara 🐾</div>
+          <div class="tl-desc">We're almost there! Just a short walk from the station to our lunch spot.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" onclick="toggleTl(this)">
+        <div class="tl-dot">🥐</div>
+        <div class="tl-bubble">
+          <div class="tl-time">2:00 PM · Lunch Time</div>
+          <div class="tl-event">Lunch at Flint Café, The Curve! 🍴</div>
+          <div class="tl-desc">A warm, yummy meal to fuel our day!</div>
+        </div>
+      </div>
+
+      <div class="tl-item" onclick="toggleTl(this)">
+        <div class="tl-dot">🚇</div>
+        <div class="tl-bubble">
+          <div class="tl-time">4:00 PM · Next Stop!</div>
+          <div class="tl-event">MRT to Pavilion Damansara 🌷</div>
+          <div class="tl-desc">Back on the train for our next destination. The second half of our little day awaits</div>
+        </div>
+      </div>
+
+      <div class="tl-item" onclick="toggleTl(this)">
+        <div class="tl-dot">☕</div>
+        <div class="tl-bubble">
+          <div class="tl-time">4:30 PM · Coffee & Talk</div>
+          <div class="tl-event">Atelier Café @ Kinokuniya Books ✨</div>
+          <div class="tl-desc">Slow conversations & sweet moments surrounded by books (because you love them). No rush, no agenda, just us.</div>
+        </div>
+      </div>
+
+      <div class="tl-item" onclick="toggleTl(this)">
+        <div class="tl-dot">🎮</div>
+        <div class="tl-bubble">
+          <div class="tl-time">5:00 PM · Surprise!</div>
+          <div class="tl-event">A cute little game, hihi 🐱💛</div>
+          <div class="tl-desc">You'll find out when we get there 🤫</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:28px;">
+      <button class="btn btn-main" onclick="goTo('s4')">Get Ready 🐱</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ S4 — CHECKLIST ══════ -->
+<div class="section" id="s4">
+  <div class="cl-wrap">
+    <h2 class="cl-title">Date Prep 🐾</h2>
+    <p class="cl-sub">Check everything off before we go!</p>
+
+    <div class="prog-track"><div class="prog-fill" id="prog"></div></div>
+
+    <div class="cl-list">
+      <div class="cl-item" onclick="tick(this)">
+        <div class="cl-circle">✓</div>
+        <span class="cl-emoji">😴</span>
+        <span class="cl-label">Rest well!</span>
+      </div>
+      <div class="cl-item" onclick="tick(this)">
+        <div class="cl-circle">✓</div>
+        <span class="cl-emoji">👗</span>
+        <span class="cl-label">Dress your best outfit</span>
+      </div>
+      <div class="cl-item" onclick="tick(this)">
+        <div class="cl-circle">✓</div>
+        <span class="cl-emoji">🍜</span>
+        <span class="cl-label">Hungry enough for adventure</span>
+      </div>
+      <div class="cl-item" onclick="tick(this)">
+        <div class="cl-circle">✓</div>
+        <span class="cl-emoji">💭</span>
+        <span class="cl-label">Ready for deep talks</span>
+      </div>
+      <div class="cl-item" onclick="tick(this)">
+        <div class="cl-circle">✓</div>
+        <span class="cl-emoji">😊</span>
+        <span class="cl-label">Brightest smile packed</span>
+      </div>
+      <div class="cl-item" onclick="tick(this)">
+        <div class="cl-circle">✓</div>
+        <span class="cl-emoji">✨</span>
+        <span class="cl-label">Heart open for new memories</span>
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <button class="btn btn-main" onclick="goTo('s5')">Final Question 💌</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ S5 — FINAL INVITATION ══════ -->
+<div class="section" id="s5">
+  <div class="final-wrap">
+    <div class="final-cat">🐱</div>
+    <h2 class="final-q">Will you come with me? 💌</h2>
+
+    <div class="answer-zone" id="answerZone">
+      <button class="btn btn-yes" onclick="sayYes()">Yes, of course! 🐾</button>
+      <button class="btn btn-no" id="noBtn" onmouseenter="dodgeNo()" onclick="noClicked()">No</button>
+    </div>
+
+    <div class="no-err" id="noErr">Error 404: Option not found 😼 (Nice try~)</div>
+
+    <!-- Countdown -->
+    <div class="countdown-card">
+      <p class="cd-label">Counting down to our little day together… 🐱</p>
+      <div class="cd-timer">
+        <div class="cd-unit">
+          <div class="cd-num" id="cdD">--</div>
+          <div class="cd-unit-lbl">days</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-num" id="cdH">--</div>
+          <div class="cd-unit-lbl">hours</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-num" id="cdM">--</div>
+          <div class="cd-unit-lbl">mins</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-num" id="cdS">--</div>
+          <div class="cd-unit-lbl">secs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Polaroid -->
+    <div class="polaroid">
+      <div class="polaroid-inner">
+        <div class="polaroid-dots">
+          <div class="polaroid-dot"></div>
+          <div class="polaroid-dot"></div>
+          <div class="polaroid-dot"></div>
+        </div>
+        <p class="polaroid-wonder">I wonder what<br>goes here…</p>
+      </div>
+      <p class="polaroid-caption">something for us to fill 🌸</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ CELEBRATE ══════ -->
+<div id="celebrate">
+  <span class="cel-cat">🐱</span>
+  <h2 class="cel-title">Yay!! 💛</h2>
+  <p class="cel-msg">I'm really looking forward to spending the day with you. Just us, and a really nice little day.</p>
+  <div class="cel-hearts">🌸 💛 🌸</div>
+  <p class="cel-bye">See you! 🐾</p>
+</div>
+
+<script>
+  /* ── CONFIG ── */
+  const DATE_TARGET = new Date('2026-06-25T13:00:00'); // 25 June 2026, 1pm
+
+  /* ── NAVIGATION ── */
+  function goTo(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ── FLOATING BG ── */
+  const BG = ['🐱','🐾','🌸','💛','✨','💌','🌷','🐈'];
+  const bg = document.getElementById('bgLayer');
+  for (let i = 0; i < 14; i++) {
+    const el = document.createElement('div');
+    el.className = 'bg-float';
+    el.textContent = BG[Math.floor(Math.random() * BG.length)];
+    el.style.left = `${Math.random() * 100}%`;
+    el.style.fontSize = `${1.4 + Math.random() * 2}rem`;
+    const dur = 9 + Math.random() * 14;
+    el.style.animation = `bgFloat ${dur}s ${-Math.random() * dur}s linear infinite`;
+    bg.appendChild(el);
+  }
+
+  /* ── PAW TRAIL ── */
+  let lastPaw = 0;
+  document.addEventListener('mousemove', e => {
+    const now = Date.now();
+    if (now - lastPaw < 130) return;
+    lastPaw = now;
+    const p = document.createElement('div');
+    p.className = 'paw'; p.textContent = '🐾';
+    p.style.left = `${e.clientX - 10}px`;
+    p.style.top  = `${e.clientY - 10}px`;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 950);
+  });
+
+  /* ── CARD PICK ── */
+  function pickCard(card, type) {
+    document.getElementById(type === 'lunch' ? 'lunchGrid' : 'cafeGrid')
+      .querySelectorAll('.g-card').forEach(c => c.classList.remove('chosen'));
+    card.classList.add('chosen');
+    document.getElementById(type === 'lunch' ? 'lunchMsg'  : 'cafeMsg').classList.add('show');
+    document.getElementById(type === 'lunch' ? 'lunchNext' : 'cafeNext').classList.remove('hidden');
+    localStorage.setItem('guess_' + type, card.querySelector('.name').textContent);
+  }
+
+  /* ── TIMELINE ── */
+  function toggleTl(item) {
+    const was = item.classList.contains('open');
+    document.querySelectorAll('.tl-item.open').forEach(i => i.classList.remove('open'));
+    if (!was) item.classList.add('open');
+  }
+
+  /* ── CHECKLIST ── */
+  function tick(item) {
+    item.classList.toggle('done');
+    item.style.transform = 'scale(1.06) translateX(4px)';
+    setTimeout(() => { item.style.transform = ''; }, 200);
+    const all  = document.querySelectorAll('.cl-item').length;
+    const done = document.querySelectorAll('.cl-item.done').length;
+    document.getElementById('prog').style.width = `${(done / all) * 100}%`;
+  }
+
+  /* ── NO BUTTON DODGE ── */
+  let noEscaped = false;
+  function dodgeNo() {
+    const btn = document.getElementById('noBtn');
+    if (!noEscaped) { noEscaped = true; btn.classList.add('escaped'); }
+    const bw = btn.offsetWidth || 100, bh = btn.offsetHeight || 48, m = 20;
+    btn.style.left = `${m + Math.random() * (window.innerWidth  - bw - m * 2)}px`;
+    btn.style.top  = `${m + Math.random() * (window.innerHeight - bh - m * 2)}px`;
+  }
+  function noClicked() {
+    document.getElementById('noErr').classList.add('show');
+    dodgeNo();
+  }
+
+  /* ── YES ── */
+  function sayYes() {
+    localStorage.setItem('said_yes', 'true');
+    launchConfetti();
+    setTimeout(() => document.getElementById('celebrate').classList.add('show'), 700);
+  }
+
+  /* ── CONFETTI ── */
+  const CC = ['#F7C5D7','#D8C4F0','#FFD6A5','#C4E8FF','#A8E8C8','#FFB6C1'];
+  const CE = ['🌸','💛','🐾','✨','💌','🎀','🌷'];
+  function launchConfetti() {
+    for (let i = 0; i < 65; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'conf';
+        if (Math.random() > .48) {
+          el.textContent = CE[Math.floor(Math.random() * CE.length)];
+          el.style.fontSize = `${.9 + Math.random()}rem`;
+        } else {
+          el.style.width  = `${7 + Math.random() * 8}px`;
+          el.style.height = `${7 + Math.random() * 8}px`;
+          el.style.borderRadius = Math.random() > .5 ? '50%' : '3px';
+          el.style.background = CC[Math.floor(Math.random() * CC.length)];
+        }
+        el.style.left = `${Math.random() * 100}vw`;
+        el.style.top  = '-30px';
+        const dur = 2.2 + Math.random() * 2.8;
+        el.style.animation = `confFall ${dur}s ease forwards`;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), dur * 1000 + 200);
+      }, i * 55);
+    }
+  }
+
+  /* ── COUNTDOWN ── */
+  function tick2() {
+    const diff = DATE_TARGET - new Date();
+    if (diff <= 0) {
+      ['cdD','cdH','cdM','cdS'].forEach(id => document.getElementById(id).textContent = '00');
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000)  / 60000);
+    const s = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cdD').textContent = String(d).padStart(2,'0');
+    document.getElementById('cdH').textContent = String(h).padStart(2,'0');
+    document.getElementById('cdM').textContent = String(m).padStart(2,'0');
+    document.getElementById('cdS').textContent = String(s).padStart(2,'0');
+  }
+  tick2();
+  setInterval(tick2, 1000);
+</script>
+</body>
+</html>
